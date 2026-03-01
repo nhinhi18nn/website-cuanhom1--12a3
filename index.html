@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nhóm 1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Quicksand',sans-serif;}
+html{scroll-behavior:smooth;}
+
+body{
+background: linear-gradient(-45deg,#d4fc79,#b8f2e6,#c2ffd8,#f9f9f9);
+background-size:400% 400%;
+animation:gradientMove 12s ease infinite;
+overflow-x:hidden;
+}
+
+@keyframes gradientMove{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:rgba(255,255,255,0.95);
+display:flex;
+justify-content:center;
+gap:40px;
+padding:15px 0;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+z-index:1000;
+}
+
+nav a{
+text-decoration:none;
+font-weight:bold;
+color:#2f5d50;
+cursor:pointer;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#2ecc71;
+}
+
+header{
+text-align:center;
+padding:140px 20px 60px;
+}
+
+header h1{font-size:45px;}
+header p{margin-top:15px;font-size:20px;opacity:0.8;}
+
+#about{
+max-width:800px;
+margin:0 auto 60px;
+padding:30px;
+text-align:center;
+background:white;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.container{
+max-width:1100px;
+margin:40px auto;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:25px;
+text-align:center;
+cursor:pointer;
+opacity:0;
+transform:translateY(50px);
+box-shadow:0 10px 25px rgba(46,204,113,0.35);
+transition:all 0.8s ease;
+}
+
+.card.show{
+opacity:1;
+transform:translateY(0);
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 25px 60px rgba(46,204,113,0.7);
+}
+
+.avatar{
+width:110px;
+height:110px;
+object-fit:contain;
+margin-bottom:10px;
+filter: drop-shadow(0 10px 20px rgba(46,204,113,0.5));
+}
+
+.role{
+font-size:14px;
+opacity:0.7;
+margin-top:5px;
+}
+
+#achievements{
+max-width:1000px;
+margin:60px auto;
+padding:40px;
+background:white;
+border-radius:25px;
+box-shadow:0 10px 30px rgba(0,0,0,0.1);
+}
+
+.achieve-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+margin-top:30px;
+}
+
+.achieve-item{
+background:#f3fff6;
+padding:20px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(46,204,113,0.25);
+}
+
+.popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.5);
+display:flex;
+justify-content:center;
+align-items:center;
+visibility:hidden;
+opacity:0;
+transition:0.3s;
+}
+
+.popup.active{
+visibility:visible;
+opacity:1;
+}
+
+.popup-box{
+background:white;
+padding:35px;
+border-radius:25px;
+text-align:center;
+max-width:350px;
+}
+
+.video-popup{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.95);
+display:flex;
+justify-content:center;
+align-items:center;
+visibility:hidden;
+opacity:0;
+transition:0.4s;
+z-index:2000;
+}
+
+.video-popup.active{
+visibility:visible;
+opacity:1;
+}
+
+.video-box{
+position:relative;
+width:95%;
+max-width:500px;
+aspect-ratio:9/16;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 20px 60px rgba(46,204,113,0.6);
+}
+
+.video-box iframe{
+width:100%;
+height:100%;
+border:none;
+}
+
+.close-btn{
+position:absolute;
+top:10px;
+right:10px;
+background:white;
+border:none;
+font-size:18px;
+width:35px;
+height:35px;
+border-radius:50%;
+cursor:pointer;
+}
+
+.petal{
+position:fixed;
+top:-20px;
+width:15px;
+height:20px;
+background:pink;
+border-radius:50% 50% 50% 0;
+transform:rotate(45deg);
+opacity:0.8;
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh) rotate(720deg);}
+}
+
+footer{
+background:#2f5d50;
+color:white;
+text-align:center;
+padding:25px;
+margin-top:60px;
+}
+</style>
+</head>
+<body>
+<nav>
+<a href="#home">Trang chủ</a>
+<a href="#about">Giới thiệu</a>
+<a href="#members">Thành viên</a>
+<a href="#achievements">Thành tựu</a>
+<a onclick="openVideo()">Video</a>
+</nav>
+
+<header id="home">
+<h1>Xin chào đây là trang web của Nhóm 1 💛</h1>
+<p>Together We Shine ✨</p>
+</header>
+
+<section id="about">
+<h2>Giới thiệu về Nhóm 1</h2>
+<p>Nhóm 1 là tập thể đoàn kết, sáng tạo và luôn hỗ trợ lẫn nhau trong học tập.</p>
+</section>
+
+<section id="members" class="container">
+
+<!-- 8 THÀNH VIÊN -->
+<div class="card" onclick="showQuote('Yến Nhi','Hãy luôn tự tin và tỏa sáng 🌸')">
+<img src="https://pngimg.com/uploads/minions/minions_PNG63.png" class="avatar">
+<h3>Yến Nhi</h3>
+<div class="role">Thành viên</div>
+</div>
+
+<div class="card" onclick="showQuote('Tuyết Trinh','Kiên trì là chìa khóa của thành công 💙')">
+<img src="https://pngimg.com/uploads/minions/minions_PNG70.png" class="avatar">
+<h3>Tuyết Trinh</h3>
+<div class="role"><b>Tổ trưởng</b></div>
+</div>
+
+<div class="card" onclick="showQuote('Khánh An','Mỗi ngày là một bước tiến 💜')">
+<img src="https://pngimg.com/uploads/minions/minions_PNG55.png" class="avatar">
+<h3>Khánh An</h3>
+<div class="role">Thành viên</div>
+</div>
+
+<div class="card" onclick="showQuote('Ngọc Khánh','Không gì là không thể 💪')">
+<img src="https://pngimg.com/uploads/minions/minions_PNG31.png" class="avatar">
+<h3>Ngọc Khánh</h3>
+<div class="role">Thành viên</div>
+</div>
+
+<div class="card" onclick="showQuote('Thành Nhân','Cố gắng hôm nay, thành công ngày mai 🚀')">
+<img src="https://pngimg.com/uploads/minions/minions_PNG24.png" class="avatar">
+<h3>Thành Nhân</h3>
+<div class="role">Thành viên</div>
+</div>
+
+<div class="card" onclick="showQuote('Anh Minh','Luôn học hỏi và phát triển 📚')">
+<img src="https://pngimg.com/uploads/minions/minions_PNG45.png" class="avatar">
+<h3>Anh Minh</h3>
+<div class="role">Thành viên</div>
+</div>
+
+<div class="card" onclick="showQuote('Hoàng Long','Dám nghĩ dám làm 🔥')">
+<img src="https://pngimg.com/uploads/minions/minions_PNG48.png" class="avatar">
+<h3>Hoàng Long</h3>
+<div class="role">Thành viên</div>
+</div>
+
+<div class="card" onclick="showQuote('Đăng Khoa','Ước mơ lớn – Hành động lớn ✨')">
+<img src="https://pngimg.com/uploads/minions/minions_PNG52.png" class="avatar">
+<h3>Đăng Khoa</h3>
+<div class="role">Thành viên</div>
+</div>
+
+</section>
+
+<section id="achievements">
+<h2 style="text-align:center;">Hoạt động & Thành tựu nổi bật</h2>
+<div class="achieve-grid">
+<div class="achieve-item">
+<h4>🏆 Thuyết trình xuất sắc</h4>
+<p>Hoàn thành bài thuyết trình với sự tự tin và phối hợp ăn ý.</p>
+</div>
+<div class="achieve-item">
+<h4>🎨 Sáng tạo nội dung</h4>
+<p>Thiết kế website nhóm độc đáo, có hiệu ứng chuyển động.</p>
+</div>
+<div class="achieve-item">
+<h4>🤝 Tinh thần đồng đội</h4>
+<p>Luôn hỗ trợ nhau trong học tập và hoạt động nhóm.</p>
+</div>
+<div class="achieve-item">
+<h4>🚀 Không ngừng phát triển</h4>
+<p>Liên tục cải tiến và nâng cấp website.</p>
+</div>
+</div>
+</section>
+
+<div class="popup" id="popup" onclick="closePopup()">
+<div class="popup-box" onclick="event.stopPropagation()">
+<h3 id="name"></h3>
+<p id="quote"></p>
+</div>
+</div>
+
+<div class="video-popup" id="videoPopup">
+<div class="video-box">
+<button class="close-btn" onclick="closeVideo()">✖</button>
+<iframe id="videoFrame" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+</div>
+</div>
+
+<footer>
+© 2026 Nhóm 1 | Together We Shine 💛
+</footer>
+<script>
+function showQuote(name, quote){
+document.getElementById("name").innerText=name;
+document.getElementById("quote").innerText=quote;
+document.getElementById("popup").classList.add("active");
+}
+
+function closePopup(){
+document.getElementById("popup").classList.remove("active");
+}
+
+function openVideo(){
+const popup=document.getElementById("videoPopup");
+const frame=document.getElementById("videoFrame");
+frame.src="https://www.youtube.com/embed/yj7vKH3AjEw?autoplay=1";
+popup.classList.add("active");
+}
+
+function closeVideo(){
+const popup=document.getElementById("videoPopup");
+const frame=document.getElementById("videoFrame");
+popup.classList.remove("active");
+frame.src="";
+}
+
+const cards=document.querySelectorAll(".card");
+const observer=new IntersectionObserver((entries)=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+},{threshold:0.2});
+cards.forEach(card=>observer.observe(card));
+
+function createPetal(){
+const petal=document.createElement("div");
+petal.classList.add("petal");
+petal.style.left=Math.random()*window.innerWidth+"px";
+petal.style.animationDuration=(5+Math.random()*5)+"s";
+document.body.appendChild(petal);
+setTimeout(()=>{petal.remove();},10000);
+}
+setInterval(createPetal,800);
+</script>
+
+</body>
+</html>
